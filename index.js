@@ -1,5 +1,5 @@
 const express = require("express");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 4000;
@@ -40,7 +40,7 @@ async function run() {
       const result = await courseCollection.insertOne(courseData);
       res.send(result);
     });
-    // my course
+    // my course get
     app.get("/myCourse", async (req, res) => {
       const email = req.query.email;
       let query = {};
@@ -51,6 +51,14 @@ async function run() {
       }
       const cursor = courseCollection.find(query);
       const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    // my course delete
+    app.delete("/myCourse/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await courseCollection.deleteOne(query);
       res.send(result);
     });
 
