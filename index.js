@@ -29,8 +29,15 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/course", async (req, res) => {
+    app.get("/courses", async (req, res) => {
       const result = await courseCollection.find().toArray();
+      res.send(result);
+    });
+
+    // course add api
+    app.post("/course", async (req, res) => {
+      const courseData = req.body;
+      const result = await courseCollection.insertOne(courseData);
       res.send(result);
     });
 
