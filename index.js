@@ -40,6 +40,19 @@ async function run() {
       const result = await courseCollection.insertOne(courseData);
       res.send(result);
     });
+    // my course
+    app.get("/myCourse", async (req, res) => {
+      const email = req.query.email;
+      let query = {};
+      if (email) {
+        query = {
+          "instructor.email": email,
+        };
+      }
+      const cursor = courseCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     await client.db("admin").command({ ping: 1 });
     console.log(
