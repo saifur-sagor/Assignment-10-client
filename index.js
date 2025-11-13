@@ -2,7 +2,7 @@ const express = require("express");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
 const cors = require("cors", {
-  origin: ["https://learnhub55.netlify.app", "http://localhost:5173/"],
+  origin: ["https://learnhub55.netlify.app", "http://localhost:5173"],
 });
 const port = process.env.PORT || 4000;
 
@@ -22,7 +22,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+    // await client.connect();
     const db = client.db("e_learning_db");
     const courseCollection = db.collection("course");
     const enrollCollection = db.collection("enrollments");
